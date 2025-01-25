@@ -16,6 +16,19 @@
   font-family: var(--font-geist-sans);
 }
 
+.gridItem{
+  background-color: black;
+  width: auto;
+  height: auto;
+}
+
+.terrain{
+  width: 150px;
+  height: 150px;
+  image-rendering: pixelated;
+  image-rendering:crisp-edges ;
+}
+
 @media (prefers-color-scheme: dark) {
   .page {
     --gray-rgb: 255, 255, 255;
