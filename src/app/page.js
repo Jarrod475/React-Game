@@ -6,7 +6,7 @@ import { useState,useEffect } from "react";
 export default function Home() {
   //this bad boy is the player position!
   const [playerPos, setPlayerPos] = useState(0);
-  const [gridSize, setGridSize] = useState([4,6]);
+  const [gridSize, setGridSize] = useState([5, 5]);
   //this function is called when a key is pressed
   const handleKeyDown = (event) => {
     setPlayerPos((prevPos) => {
@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <Grid rows={4} columns={6} playerPos={playerPos} />
+      <Grid rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} />
     </div>
   );
 }
