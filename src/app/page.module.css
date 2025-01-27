@@ -16,6 +16,8 @@
   font-family: var(--font-geist-sans);
 }
 
+
+
 .gridItem{
   background-color: black;
   width: auto;
@@ -23,6 +25,13 @@
 }
 
 .terrain{
+  width: 150px;
+  height: 150px;
+  image-rendering: pixelated;
+  image-rendering:crisp-edges ;
+}
+
+.playertile{
   width: 150px;
   height: 150px;
   image-rendering: pixelated;
