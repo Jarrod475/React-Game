@@ -1,7 +1,8 @@
 import React from 'react';
 import Tile from "./grid-tile";
 import Player from './player';
-const TileGrid = ({ rows, columns ,playerPos, obstacles}) => {
+import Corruption from './corruption';
+const TileGrid = ({ rows, columns ,playerPos, obstacles, corruptions}) => {
   const totalTiles = rows * columns;
 // ok so the '_' is used when you arent interested in that value,
 //  when calling some function and it requires more than one parameter you arent gona use
@@ -21,10 +22,15 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
     <Player isPlayer={playerPos===index?true:false} tileID={index} key={index}  />
   ));
 
+  const corruption = Array.from({ length: totalTiles }, (_, index) => (
+    <Corruption corrupted={index === corruptions.find((corr)=> corr === index)?true:false} tileID={index} key={index}  />
+  ));
+
+
 
   return (
     <div>
-      <div //tile grid for player
+      <div //tile grid for corruption
         className="grid"
         style={{
           display: 'grid',
@@ -37,6 +43,23 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
           top: '130px',
           left: '10%',
           zIndex: 2 // Ensure background tiles are below the player
+        }}>
+        {corruption}
+
+      </div>
+      <div //tile grid for player
+        className="grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gap: '5px',
+          rowGap: '1px',
+          width: 'auto',
+          height: 'auto',
+          position: 'absolute',
+          top: '130px',
+          left: '10%',
+          zIndex: 3 // Ensure background tiles are below the player
         }}>
         {player}
 

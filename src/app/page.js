@@ -8,7 +8,8 @@ export default function Home() {
   const [level, setLevel] = useState(0);
   const [playerPos, setPlayerPos] = useState(1);
   const [gridSize, setGridSize] = useState([]);
-  const [obstacles, setObstacles] = useState([5,7,3]);
+  const [obstacles, setObstacles] = useState([5]);
+  const [corruption,setCorruption] = useState([3])
 
 //this hook will load a level based on the level number
 useEffect(() => {
@@ -16,7 +17,9 @@ useEffect(() => {
   let randColl = Math.floor(Math.random() * 5) + 3;
   setPlayerPos(0);
   setGridSize([4,randColl]);
-  setObstacles([5,7,3]);
+  setObstacles([5]);
+  setCorruption([3]);
+
 }, [level]);
 
 
@@ -24,6 +27,7 @@ useEffect(() => {
   const handleKeyDown = (event) => {
     setPlayerPos((prevPos) => {
       let newpos = prevPos;
+      //this switch statement handles the arrow key input and then also the movement of the corruption point.
       switch (event.key) {
         case 'ArrowUp':
           newpos = (prevPos - gridSize[1] >= 0) ? (prevPos - gridSize[1]) : prevPos;
@@ -64,13 +68,13 @@ useEffect(() => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [gridSize,obstacles]);
+  }, [gridSize,obstacles,corruption]);
 
 //we destructure this component for easier access inside of it!
   return (
     <div className={styles.page}>
       <h1>Level {level}</h1>
-      <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles}/>
+      <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption}/>
     </div>
   );
 }
