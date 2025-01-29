@@ -3,15 +3,15 @@ import Tile from "./grid-tile";
 import Player from './player';
 const TileGrid = ({ rows, columns ,playerPos, obstacles}) => {
   const totalTiles = rows * columns;
-
 // ok so the '_' is used when you arent interested in that value,
 //  when calling some function and it requires more than one parameter you arent gona use
 const tiles = Array.from({ length: totalTiles }, (_, index) => {
   let tyleType = 'dirt'; 
   //set the tyle type to rock if its ID is part of the obstacles array.
   if (index === obstacles.find((obst)=> obst === index)){
-    console.log('found obstacle at :' , index);
     tyleType = 'rock';
+  }else if (index === totalTiles - 1){
+    tyleType = 'door';
   }
   return <Tile tileID={index} type={tyleType} key={index} className="tile" />;
 });
@@ -34,7 +34,7 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
           width: 'auto',
           height: 'auto',
           position: 'absolute',
-          top: '50px',
+          top: '130px',
           left: '10%',
           zIndex: 2 // Ensure background tiles are below the player
         }}>
@@ -53,7 +53,7 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
           width: 'auto',
           height: 'auto',
           position: 'absolute',
-          top: '50px',
+          top: '130px',
           left: '10%',
           zIndex: 1 // Ensure player is above the background tiles
         }}

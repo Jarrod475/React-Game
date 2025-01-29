@@ -8,6 +8,9 @@ function tile(props){
         case 'rock' :
             source = "terrain/rock.png"
             break;
+        case 'door' :
+            source = "terrain/door.png"
+            break;
         default:
             source = "terrain/dirt.png";
             break;
