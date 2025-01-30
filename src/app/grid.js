@@ -22,9 +22,17 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
     <Player isPlayer={playerPos===index?true:false} tileID={index} key={index}  />
   ));
 
-  const corruption = Array.from({ length: totalTiles }, (_, index) => (
-    <Corruption corrupted={index === corruptions.find((corr)=> corr === index)?true:false} tileID={index} key={index}  />
-  ));
+  const corruption = Array.from({ length: totalTiles }, (_, index) => {
+    let state = 0;
+    if (index === corruptions[corruptions.length - 1]){
+      state = 2;
+    }else if (index === corruptions.find((corr)=> corr === index)){
+      state = 1;
+    }else{
+      state = 0;
+    }
+   return <Corruption corrupted={state} tileID={index} key={index}  />
+});
 
 
 

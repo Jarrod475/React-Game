@@ -11,6 +11,8 @@ export default function Home() {
   const [obstacles, setObstacles] = useState([5]);
   const [corruption,setCorruption] = useState([3])
 
+
+
 //this hook will load a level based on the level number
 useEffect(() => {
   console.log("level is ", level);
@@ -25,9 +27,10 @@ useEffect(() => {
 
   //this function is called when a key is pressed
   const handleKeyDown = (event) => {
+    //this function moves the player
     setPlayerPos((prevPos) => {
       let newpos = prevPos;
-      //this switch statement handles the arrow key input and then also the movement of the corruption point.
+      //this switch statement handles the arrow key input and moves the player accordingly
       switch (event.key) {
         case 'ArrowUp':
           newpos = (prevPos - gridSize[1] >= 0) ? (prevPos - gridSize[1]) : prevPos;
@@ -50,9 +53,34 @@ useEffect(() => {
         
       }else{
         return newpos;
-        
       }
-
+    });
+    //this function moves the corruption
+    setCorruption((prevCorruption)=>{
+      let newCorruptionPoint = prevCorruption[prevCorruption.length-1];
+      switch (event.key) {
+        case 'ArrowUp':
+          newCorruptionPoint = (newCorruptionPoint - gridSize[1] >= 0) ? (newCorruptionPoint - gridSize[1]) : newCorruptionPoint;
+          console.log("new corruption point after arrow up is ",newCorruptionPoint);
+          break;
+        case 'ArrowDown':
+          newCorruptionPoint =  (newCorruptionPoint + gridSize[1] < (gridSize[1] * gridSize[0])) ? (newCorruptionPoint + gridSize[1]) : newCorruptionPoint;
+          break;
+        case 'ArrowLeft':
+          newCorruptionPoint =  (newCorruptionPoint % gridSize[1] !== 0) ? (newCorruptionPoint - 1) : newCorruptionPoint;
+          break;
+        case 'ArrowRight':
+          newCorruptionPoint = ((newCorruptionPoint + 1) % gridSize[1] !== 0) ? (newCorruptionPoint + 1) : newCorruptionPoint;
+          break;
+        default:
+          newCorruptionPoint =  newCorruptionPoint;
+          break;
+      }
+      if (newCorruptionPoint != prevCorruption[prevCorruption.length-1]){
+        return [...prevCorruption,newCorruptionPoint];
+      }else{
+        return prevCorruption;
+      }
     });
   };
   //this hook checks to see if the player completed the level by reaching the last tile
@@ -68,7 +96,9 @@ useEffect(() => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [gridSize,obstacles,corruption]);
+  }, [gridSize,obstacles]);
+
+
 
 //we destructure this component for easier access inside of it!
   return (
