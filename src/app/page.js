@@ -83,12 +83,17 @@ useEffect(() => {
       }
     });
   };
-  //this hook checks to see if the player completed the level by reaching the last tile
+  //this hook checks to see if the player completed the level by reaching the last tile or touched corruption
   useEffect(() => {
+    if (playerPos === corruption.find((corr)=> corr === playerPos)) {
+      //if the player touches corruption, the level is reset
+      setLevel((prevLevel) => prevLevel - 1);  
+    }
+
     if (playerPos === gridSize[0] * gridSize[1] - 1) {
       setLevel((prevLevel) => prevLevel + 1);
     }
-  }, [playerPos]);
+  }, [playerPos,corruption]);
 
   //this is a hook that listens for keydown events, and then calls the handleKeyDown function
   useEffect(() => {
