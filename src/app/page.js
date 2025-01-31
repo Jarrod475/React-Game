@@ -3,25 +3,33 @@ import styles from "./page.module.css";
 
 import Grid from "./grid.js";
 import { useState,useEffect } from "react";
+import LevelData from "./leveldata";
 
 export default function Home() {
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(1);
   const [playerPos, setPlayerPos] = useState(1);
-  const [gridSize, setGridSize] = useState([]);
+  const [gridSize, setGridSize] = useState([4,5]);
   const [obstacles, setObstacles] = useState([5]);
   const [corruption,setCorruption] = useState([3])
 
 
+// Function to manually reload level data
+const reloadLevelData = () => {
+  let currentLevel = level;
+  setLevel(null);  // Clear the state first
+  setTimeout(() => setLevel(currentLevel), 0); // Re-fetch data
+};
+
 
 //this hook will load a level based on the level number
 useEffect(() => {
-  console.log("level is ", level);
-  let randColl = Math.floor(Math.random() * 5) + 3;
+  if(level === null){return}
+  let data = LevelData(level);
+  console.log("level data is: ", data);
+  setGridSize(data.grid);
   setPlayerPos(0);
-  setGridSize([4,randColl]);
-  setObstacles([5]);
-  setCorruption([3]);
-
+  setObstacles(data.obst);
+  setCorruption(data.corr);
 }, [level]);
 
 
@@ -87,7 +95,7 @@ useEffect(() => {
   useEffect(() => {
     if (playerPos === corruption.find((corr)=> corr === playerPos)) {
       //if the player touches corruption, the level is reset
-      setLevel((prevLevel) => prevLevel - 1);  
+      reloadLevelData();
     }
 
     if (playerPos === gridSize[0] * gridSize[1] - 1) {
