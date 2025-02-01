@@ -7,10 +7,12 @@ import LevelData from "./leveldata";
 
 export default function Home() {
   const [level, setLevel] = useState(1);
-  const [playerPos, setPlayerPos] = useState(1);
+  const [playerPos, setPlayerPos] = useState(0);
   const [gridSize, setGridSize] = useState([4,5]);
   const [obstacles, setObstacles] = useState([5]);
   const [corruption,setCorruption] = useState([3])
+
+
 
 
 // Function to manually reload level data
@@ -24,13 +26,13 @@ const reloadLevelData = () => {
 //this hook will load a level based on the level number
 useEffect(() => {
   if(level === null){return}
-  let data = LevelData(level);
-  console.log("level data is: ", data);
+  let data =  LevelData(level);
   setGridSize(data.grid);
   setPlayerPos(0);
   setObstacles(data.obst);
   setCorruption(data.corr);
 }, [level]);
+
 
 
   //this function is called when a key is pressed
@@ -116,7 +118,6 @@ useEffect(() => {
 //we destructure this component for easier access inside of it!
   return (
     <div className={styles.page}>
-      <h1>Level {level}</h1>
       <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption}/>
     </div>
   );

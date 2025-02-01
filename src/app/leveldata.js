@@ -12,10 +12,16 @@ const LevelData = (level) => {
             corr: [3]
         },
         2 : {
-            rid: [4,4],
+            grid: [4,5],
             obst: [5],
             corr: [3]
         },
+        3: {
+            grid: [4,7],
+            obst: [3,9],
+            corr: [7]
+
+        }
     };
 
     return levelData[level];
