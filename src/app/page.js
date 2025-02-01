@@ -10,7 +10,9 @@ export default function Home() {
   const [playerPos, setPlayerPos] = useState(0);
   const [gridSize, setGridSize] = useState([4,5]);
   const [obstacles, setObstacles] = useState([5]);
-  const [corruption,setCorruption] = useState([3])
+  const [grass,setGrass] = useState([]);
+  const [corruption,setCorruption] = useState([3]);
+  
 
 
 
@@ -31,6 +33,7 @@ useEffect(() => {
   setPlayerPos(0);
   setObstacles(data.obst);
   setCorruption(data.corr);
+  setGrass(data.grass);
 }, [level]);
 
 
@@ -118,7 +121,7 @@ useEffect(() => {
 //we destructure this component for easier access inside of it!
   return (
     <div className={styles.page}>
-      <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption}/>
+      <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption} grass={grass}/>
     </div>
   );
 }

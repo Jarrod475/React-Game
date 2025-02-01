@@ -2,7 +2,7 @@ import React from 'react';
 import Tile from "./grid-tile";
 import Player from './player';
 import Corruption from './corruption';
-const TileGrid = ({ rows, columns ,playerPos, obstacles, corruptions}) => {
+const TileGrid = ({ rows, columns ,playerPos, obstacles, corruptions,grass}) => {
   const totalTiles = rows * columns;
 // ok so the '_' is used when you arent interested in that value,
 //  when calling some function and it requires more than one parameter you arent gona use
@@ -11,6 +11,8 @@ const tiles = Array.from({ length: totalTiles }, (_, index) => {
   //set the tyle type to rock if its ID is part of the obstacles array.
   if (index === obstacles.find((obst)=> obst === index)){
     tyleType = 'rock';
+  }else if(index === grass.find((gras)=>gras === index)){
+    tyleType = 'grass';
   }else if (index === totalTiles - 1){
     tyleType = 'door';
   }

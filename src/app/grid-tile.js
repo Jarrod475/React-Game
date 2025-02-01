@@ -6,10 +6,13 @@ function tile(props){
             source = "terrain/dirt.png";
             break;
         case 'rock' :
-            source = "terrain/rock.png"
+            source = "terrain/rock.png";
             break;
         case 'door' :
-            source = "terrain/door.png"
+            source = "terrain/door.png";
+            break;
+        case 'grass' :
+            source = "terrain/grass.png";
             break;
         default:
             source = "terrain/dirt.png";
