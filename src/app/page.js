@@ -89,7 +89,9 @@ useEffect(() => {
           newCorruptionPoint =  newCorruptionPoint;
           break;
       }
-      if (newCorruptionPoint != prevCorruption[prevCorruption.length-1]){
+      if(newCorruptionPoint === grass.find((gras)=> gras === newCorruptionPoint)){
+        return prevCorruption;
+      } else if (newCorruptionPoint != prevCorruption[prevCorruption.length-1]){
         return [...prevCorruption,newCorruptionPoint];
       }else{
         return prevCorruption;
