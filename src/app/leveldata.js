@@ -32,11 +32,11 @@ const LevelData = (level) => {
             grass: [10]
         },
         5: {
-            grid: [7,7],
-            obst: [5,6,9],
+            grid: [5,5],
+            obst: [5,6,9,12],
             corr: [7],
-            grass: [10]
-        },
+            grass: [16]
+        }
     };
 
     return levelData[level];

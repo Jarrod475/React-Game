@@ -13,6 +13,8 @@ export default function Home() {
   const [grass,setGrass] = useState([]);
   const [corruption,setCorruption] = useState([3]);
   const [moves,setMoves] = useState(-2);
+  const [totalmoves,setTotalMoves] = useState(0);
+  const [gameover,setGameOver] = useState(false);
   
 
 
@@ -28,6 +30,11 @@ const reloadLevelData = () => {
 
 //this hook will load a level based on the level number
 useEffect(() => {
+
+  if (level === 6) {
+    setGameOver(true);
+    return;
+  }
   if(level === null){return}
   let data =  LevelData(level);
   setGridSize(data.grid);
@@ -35,6 +42,7 @@ useEffect(() => {
   setObstacles(data.obst);
   setCorruption(data.corr);
   setGrass(data.grass);
+  setTotalMoves((prevTotalMoves)=> prevTotalMoves + moves);
   setMoves(0);
 }, [level]);
 
@@ -126,12 +134,20 @@ useEffect(() => {
   }, [gridSize]);
 
 
-
-//we destructure this component for easier access inside of it!
-  return (
-    <div className={styles.page}>
-      <p>Level: {level} Moves : {moves}</p> 
-      <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption} grass={grass}/>
-    </div>
-  );
+// We destructure this component for easier access inside of it!
+return (
+  <div className={styles.page}>
+    {!gameover ? (
+      <div>
+        <p>Level: {level} Moves: {moves}</p>
+        <Grid rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption} grass={grass} />
+      </div>
+    ) : (
+      <div>
+        <h1>YOU WIN!!!</h1>
+        <p>Total Moves: {totalmoves}</p>
+      </div>
+    )}
+  </div>
+);
 }
