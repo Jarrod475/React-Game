@@ -2,7 +2,7 @@
 import styles from "./page.module.css";
 
 import Grid from "./grid.js";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import LevelData from "./leveldata";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
   const [obstacles, setObstacles] = useState([5]);
   const [grass,setGrass] = useState([]);
   const [corruption,setCorruption] = useState([3]);
-  const [moves,setMoves] = useState(0);
+  const [moves,setMoves] = useState(-2);
   
 
 
@@ -44,20 +44,25 @@ useEffect(() => {
   const handleKeyDown = (event) => {
     //this function moves the player
     setPlayerPos((prevPos) => {
+      console.log("i am running!");
       let newpos = prevPos;
       //this switch statement handles the arrow key input and moves the player accordingly
       switch (event.key) {
         case 'ArrowUp':
           newpos = (prevPos - gridSize[1] >= 0) ? (prevPos - gridSize[1]) : prevPos;
+          setMoves((prevMoves)=> prevMoves + 0.5);
           break;
         case 'ArrowDown':
           newpos =  (prevPos + gridSize[1] < (gridSize[1] * gridSize[0])) ? (prevPos + gridSize[1]) : prevPos;
+          setMoves((prevMoves)=> prevMoves + 0.5);
           break;
         case 'ArrowLeft':
           newpos =  (prevPos % gridSize[1] !== 0) ? (prevPos - 1) : prevPos;
+          setMoves((prevMoves)=> prevMoves + 0.5);
           break;
         case 'ArrowRight':
           newpos = ((prevPos + 1) % gridSize[1] !== 0) ? (prevPos + 1) : prevPos;
+          setMoves((prevMoves)=> prevMoves + 0.5);
           break;
         default:
           newpos =  prevPos;
@@ -102,7 +107,6 @@ useEffect(() => {
   };
   //this hook checks to see if the player completed the level by reaching the last tile or touched corruption
   useEffect(() => {
-    setMoves((prevMoves)=> prevMoves + 1);
     if (playerPos === corruption.find((corr)=> corr === playerPos)) {
       //if the player touches corruption, the level is reset
       reloadLevelData();
@@ -119,7 +123,7 @@ useEffect(() => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [gridSize,obstacles]);
+  }, [gridSize]);
 
 
 
