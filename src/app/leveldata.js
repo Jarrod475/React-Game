@@ -15,20 +15,20 @@ const LevelData = (level) => {
         },
         2 : {
             grid: [4,5],
-            obst: [4,5,12],
-            corr: [3],
+            obst: [4,5,12,16],
+            corr: [11],
             grass: []
         },
         3: {
             grid: [4,7],
-            obst: [4,9],
-            corr: [7],
-            grass: [10]
+            obst: [4,9,20,25],
+            corr: [8],
+            grass: [7]
         },
         4: {
-            grid: [7,7],
-            obst: [9],
-            corr: [7],
+            grid: [3,7],
+            obst: [3,9,18],
+            corr: [13],
             grass: [10]
         },
         5: {

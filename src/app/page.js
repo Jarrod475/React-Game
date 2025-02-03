@@ -8,10 +8,11 @@ import LevelData from "./leveldata";
 export default function Home() {
   const [level, setLevel] = useState(1);
   const [playerPos, setPlayerPos] = useState(0);
-  const [gridSize, setGridSize] = useState([4,5]);
+  const [gridSize, setGridSize] = useState([4,4]);
   const [obstacles, setObstacles] = useState([5]);
   const [grass,setGrass] = useState([]);
   const [corruption,setCorruption] = useState([3]);
+  const [moves,setMoves] = useState(0);
   
 
 
@@ -34,6 +35,7 @@ useEffect(() => {
   setObstacles(data.obst);
   setCorruption(data.corr);
   setGrass(data.grass);
+  setMoves(0);
 }, [level]);
 
 
@@ -100,6 +102,7 @@ useEffect(() => {
   };
   //this hook checks to see if the player completed the level by reaching the last tile or touched corruption
   useEffect(() => {
+    setMoves((prevMoves)=> prevMoves + 1);
     if (playerPos === corruption.find((corr)=> corr === playerPos)) {
       //if the player touches corruption, the level is reset
       reloadLevelData();
@@ -123,6 +126,7 @@ useEffect(() => {
 //we destructure this component for easier access inside of it!
   return (
     <div className={styles.page}>
+      <p>Level: {level} Moves : {moves}</p> 
       <Grid  rows={gridSize[0]} columns={gridSize[1]} playerPos={playerPos} obstacles={obstacles} corruptions={corruption} grass={grass}/>
     </div>
   );
