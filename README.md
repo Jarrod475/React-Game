@@ -21,6 +21,6 @@ This is a simple game built with React. Navigate with arrow keys and try to get 
 
 To start the development server, run:
 ```sh
-npm start
+npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
