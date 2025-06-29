@@ -6,7 +6,7 @@ This is a simple game built with React. Navigate with arrow keys and try to get 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/react-game.git
+    git clone https://github.com/Jarrod475/React-Game.git
     ```
 2. Navigate to the project directory:
     ```sh
